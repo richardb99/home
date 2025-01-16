@@ -72,6 +72,21 @@
       const weather = data.weathercode; // Open-Meteo returns weather codes
       weatherText.textContent = `${temp}°C, Weather Code: ${weather}`;
     }
+
+    // Get user's current location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          fetchWeather(latitude, longitude);
+        },
+        (error) => {
+          weatherText.textContent = 'Location not available';
+        }
+      );
+    } else {
+      weatherText.textContent = 'Geolocation not supported';
+    }    
   </script>  
 </body>
 </html>
