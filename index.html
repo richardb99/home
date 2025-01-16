@@ -54,48 +54,23 @@
   </div>
 
   <script>
-    // JavaScript to fetch and display weather
-    const weatherPillbox = document.getElementById('weather-pillbox');
-    const weatherText = document.getElementById('weather-text');
-    const weatherIcon = document.getElementById('weather-icon');
-
-    // Function to get weather data
     async function fetchWeather(lat, lon) {
-      const apiKey = 'YOUR_API_KEY'; // Replace with your OpenWeatherMap API key
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=35.6895&longitude=139.6917&current_weather=true`;
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
       try {
         const response = await fetch(url);
         if (!response.ok) throw new Error('Weather data not available');
         const data = await response.json();
-        displayWeather(data);
+        displayWeather(data.current_weather);
       } catch (error) {
         weatherText.textContent = 'Unable to fetch weather';
       }
     }
-
-    // Function to display weather
+    
+    // Display the weather
     function displayWeather(data) {
-      const temp = Math.round(data.main.temp);
-      const weather = data.weather[0].description;
-      const icon = data.weather[0].icon;
-      weatherText.textContent = `${temp}°C, ${weather}`;
-      weatherIcon.src = `https://openweathermap.org/img/wn/${icon}.png`;
-      weatherIcon.style.display = 'block';
-    }
-
-    // Get user's current location
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          fetchWeather(latitude, longitude);
-        },
-        (error) => {
-          weatherText.textContent = 'Location not available';
-        }
-      );
-    } else {
-      weatherText.textContent = 'Geolocation not supported';
+      const temp = Math.round(data.temperature);
+      const weather = data.weathercode; // Open-Meteo returns weather codes
+      weatherText.textContent = `${temp}°C, Weather Code: ${weather}`;
     }
   </script>  
 </body>
