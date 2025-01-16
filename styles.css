@@ -53,3 +53,23 @@ header h1 {
   font-size: 0.7em;
   text-align: center;
 }
+
+.weather-pillbox {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+}
+.weather-pillbox img {
+  width: 24px;
+  height: 24px;
+}
