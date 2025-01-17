@@ -84,6 +84,8 @@
   function displayWeather(data) {
     const temp = Math.round(data.temperature); // Temperature
     const weatherCode = data.weathercode; // Weather code
+
+    console.log('Weather Code:', weatherCode);
     
     // Map weather code to custom icon
     const iconName = weatherCodeToIcon[weatherCode] || 'unknown';
