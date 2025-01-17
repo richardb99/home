@@ -47,10 +47,14 @@
     </div>    
   </div>
 
+  
+
   <div class="weather-pillbox" id="weather-pillbox">
     <img src="" alt="Weather Icon" id="weather-icon" style="display:none; width:24px; height:24px;">
     <span id="weather-text">Loading...</span>
   </div>
+
+  <div id="node-id"></div>
 
   <script>
     const weatherText = document.getElementById('weather-text');
@@ -82,7 +86,10 @@
   function displayWeather(data) {
     const temp = Math.round(data.temperature); // Temperature
     const weatherCode = data.weathercode; // Weather code
-  
+
+    var node = document.getElementById('node-id');
+    node.innerHTML(weatherCode);
+    
     // Map weather code to custom icon
     const iconName = weatherCodeToIcon[weatherCode] || 'unknown';
     const iconUrl = `./icons/${iconName}.png`; // Replace with your icon path
