@@ -54,8 +54,6 @@
     <span id="weather-text">Loading...</span>
   </div>
 
-  <div id="node-id"></div>
-
   <script>
     const weatherText = document.getElementById('weather-text');
 
@@ -86,9 +84,6 @@
   function displayWeather(data) {
     const temp = Math.round(data.temperature); // Temperature
     const weatherCode = data.weathercode; // Weather code
-
-    var node = document.getElementById('node-id');
-    node.innerHTML(weatherCode);
     
     // Map weather code to custom icon
     const iconName = weatherCodeToIcon[weatherCode] || 'unknown';
