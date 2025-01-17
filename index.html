@@ -47,8 +47,8 @@
     </div>    
   </div>
 
-  <!-- Weather Pillbox -->
   <div class="weather-pillbox" id="weather-pillbox">
+    <img src="" alt="Weather Icon" id="weather-icon" style="display:none; width:24px; height:24px;">
     <span id="weather-text">Loading...</span>
   </div>
 
@@ -70,15 +70,31 @@
       }
     }
 
-    function displayWeather(data) {
-      console.log('Displaying weather data:', data);
-      if (data && data.temperature !== undefined) {
-        const temp = Math.round(data.temperature);
-        weatherText.textContent = `${temp}°C`;
-      } else {
-        weatherText.textContent = 'Weather data unavailable';
-      }
-    }
+  // Weather code to icon mapping
+  const weatherCodeToIcon = {
+    0: 'clear', // Clear sky
+    1: 'partly-cloudy', // Mostly clear
+    2: 'cloudy', // Partly cloudy
+    3: 'overcast', // Overcast
+    // Add other mappings for specific weather codes
+  };
+  
+  function displayWeather(data) {
+    const temp = Math.round(data.temperature); // Temperature
+    const weatherCode = data.weathercode; // Weather code
+  
+    // Map weather code to custom icon
+    const iconName = weatherCodeToIcon[weatherCode] || 'unknown';
+    const iconUrl = `./icons/${iconName}.png`; // Replace with your icon path
+  
+    // Set weather text
+    weatherText.textContent = `${temp}°C`;
+  
+    // Set icon image
+    const weatherIcon = document.getElementById('weather-icon');
+    weatherIcon.src = iconUrl;
+    weatherIcon.style.display = 'block';
+  }
 
   navigator.geolocation.getCurrentPosition(
     (position) => {
