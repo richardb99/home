@@ -80,21 +80,32 @@
       }
     }
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          console.log('User location:', latitude, longitude);
-          fetchWeather(latitude, longitude);
-        },
-        (error) => {
-          console.error('Geolocation error:', error);
-          weatherText.textContent = 'Location not available';
-        }
-      );
-    } else {
-      weatherText.textContent = 'Geolocation not supported';
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const { latitude, longitude } = position.coords;
+      console.log('User location:', latitude, longitude);
+      fetchWeather(latitude, longitude);
+    },
+    (error) => {
+      console.error('Geolocation error:', error);
+  
+      switch (error.code) {
+        case error.PERMISSION_DENIED:
+          weatherText.textContent = 'Permission denied. Enable location access.';
+          break;
+        case error.POSITION_UNAVAILABLE:
+          weatherText.textContent = 'Position unavailable.';
+          break;
+        case error.TIMEOUT:
+          weatherText.textContent = 'Request timed out.';
+          break;
+        default:
+          weatherText.textContent = 'Unable to retrieve location.';
+          break;
+      }
     }
+  );
+
   </script>
 </body>
 </html>
